@@ -1,5 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
+import { useCookies } from "react-cookie";
+import { useNavigate } from "react-router-dom";
 
 export const Auth = () => {
   return (
@@ -14,8 +16,31 @@ const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleSubmit = async (e) => {
+  // we only needs the function that sets the cookies.
+  const [cookies, setCookies] = useCookies(["access_token"]);
+
+  const navigate = useNavigate();
+
+  const onSubmit = async (e) => {
     e.preventDefault();
+    try {
+      const response = await axios.post("http://localhost:3001/auth/login", {
+        username,
+        password,
+      });
+
+      // because in the backend, we had use jwt as
+      //  res.json({ token, userID: user._id });
+
+      //setting cookies to have that value.
+      setCookies("access_token", response.data.token);
+
+      // we want to store our USERID. for quick access to  it.
+      window.localStorage.setItem("userID", response.data.userID);
+      navigate("/");
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   return (
@@ -24,8 +49,8 @@ const Login = () => {
       setUsername={setUsername}
       password={password}
       setPassword={setPassword}
-      nature="LOGIN"
-      onSubmit={handleSubmit}
+      nature="Login"
+      onSubmit={onSubmit}
     />
   );
 };
@@ -34,7 +59,7 @@ const Register = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleSubmit = async (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
     try {
       await axios.post("http://localhost:3001/auth/register", {
@@ -54,7 +79,7 @@ const Register = () => {
       password={password}
       setPassword={setPassword}
       nature="Register"
-      onSubmit={handleSubmit}
+      onSubmit={onSubmit}
     />
   );
 };
@@ -65,12 +90,12 @@ const Form = ({
   password,
   setPassword,
   nature,
-  handleSubmit,
+  onSubmit,
 }) => {
   return (
     <div className="auth-container">
-      <form onSubmit={handleSubmit}>
-        <h2> Register</h2>
+      <form onSubmit={onSubmit}>
+        <h2> {nature}</h2>
         <div className="form-group">
           <label htmlFor="username">Username:</label>
           <input
