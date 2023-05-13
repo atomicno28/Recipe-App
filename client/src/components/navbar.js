@@ -13,7 +13,7 @@ function Navbar() {
     setCookies("access_token", "");
     window.localStorage.removeItem("userID");
 
-    // redirecting to auth page so that one can acces the page.
+    // redirecting to auth page so that one can login/register.
     navigate("/auth");
   };
 
