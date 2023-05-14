@@ -7,7 +7,11 @@ import cors from "cors";
 // used to comm to database in express.
 import mongoose from "mongoose";
 
+// for users.
 import { userRouter } from "./routes/users.js";
+
+// for recipe.
+import { recipesRouter } from "./routes/recipes.js";
 
 const app = express();
 
@@ -17,6 +21,9 @@ app.use(cors());
 
 // constituting all authorisation parts.
 app.use("/auth", userRouter);
+
+// constituting all recipe parts;
+app.use("/recipes", recipesRouter);
 
 mongoose.connect(
   "mongodb+srv://nikhillumesh:placement@cluster0.fquwxho.mongodb.net/recipee"
