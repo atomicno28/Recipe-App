@@ -13,13 +13,13 @@
 7. AXIOS
 
 
-# we're constituting similar api's using 
+# We're constituting similar api's using 
   express.router()
   
   1. auth
   2. Recipes
 
-# middleware 
+# Middleware 
 
 1. app.use(express.json()) - for converting all the incoming files to json format.
 2. app.use(cors())
