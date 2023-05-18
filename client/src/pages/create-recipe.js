@@ -1,71 +1,108 @@
-import { set } from "mongoose";
 import { useState } from "react";
+import axios from "axios";
+import { useGetUserID } from "../hooks/useGetUserID";
+import { useNavigate } from "react-router-dom";
 
 export const CreateRecipe = () => {
+  const userID = useGetUserID();
   const [recipe, setRecipe] = useState({
     name: "",
+    description: "",
     ingredients: [],
     instructions: "",
     imageUrl: "",
     cookingTime: 0,
-    userOwner: 0,
+    userOwner: userID,
   });
 
-  const handleChange = (e) => {
-    e.preventDefault();
+  const navigate = useNavigate();
 
-    // it will automatically update all the blocks
-    const { name, value } = e.target.value;
+  const handleChange = (event) => {
+    const { name, value } = event.target;
     setRecipe({ ...recipe, [name]: value });
   };
 
-  const addIngredient = () => {
-    setRecipe({ ...recipe, ingredients: [...recipe.ingredients, ""] });
+  const handleIngredientChange = (event, index) => {
+    const { value } = event.target;
+    const ingredients = [...recipe.ingredients];
+    ingredients[index] = value;
+    setRecipe({ ...recipe, ingredients });
   };
 
-  {
-    return (
-      <div className="create-recipe">
-        <h2> Create Recipe</h2>
-        <form action="">
-          <label htmlFor="name">Name</label>
-          <input type="text" id="name" onChange={handleChange} />
-          <label htmlFor="ingredients">Ingredients</label>
-          {recipe.ingredients.map((ingredient, idx) => {
-            <input
-              type="text"
-              key={idx}
-              name="ingredients"
-              value={ingredient}
-              onChange
-            />;
-          })}
-          // we're doing this to add ingredients.
-          <button onClick={addIngredient}>Add Ingredients</button>
-          <label htmlFor="instructions">Instructions</label>
-          <textarea
-            name="instructions"
-            id="instructions"
-            cols="30"
-            rows="10"
-            onChange={handleChange}
-          ></textarea>
-          <label htmlFor="imageUrl">Image URL</label>
+  const handleAddIngredient = () => {
+    const ingredients = [...recipe.ingredients, ""];
+    setRecipe({ ...recipe, ingredients });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      await axios.post("http://localhost:3001/recipes", recipe);
+      alert("Recipe created!");
+      navigate("/");
+    } catch (err) {
+      alert("An error occurred while creating the recipe.");
+      console.error(err);
+    }
+  };
+
+  return (
+    <div className="create-recipe">
+      <h2>Create Recipe</h2>
+      <form onSubmit={handleSubmit}>
+        <label htmlFor="name">Name</label>
+        <input
+          type="text"
+          id="name"
+          name="name"
+          value={recipe.name}
+          onChange={handleChange}
+        />
+        <label htmlFor="description">Description</label>
+        <textarea
+          id="description"
+          name="description"
+          value={recipe.description}
+          onChange={handleChange}
+        ></textarea>
+        <label htmlFor="ingredients">Ingredients</label>
+        {recipe.ingredients.map((ingredient, index) => (
           <input
+            key={index}
             type="text"
-            id="imageUrl"
-            name="imageUrl"
-            onChange={handleChange}
+            name="ingredients"
+            value={ingredient}
+            onChange={(event) => handleIngredientChange(event, index)}
           />
-          <label htmlFor="cookingTime">Cooking Time (minutes)</label>
-          <input
-            type="number"
-            id="cookingTime"
-            onChange={handleChange}
-            name="cookingTime"
-          />
-        </form>
-      </div>
-    );
-  }
+        ))}
+        <button type="button" onClick={handleAddIngredient}>
+          Add Ingredient
+        </button>
+        <label htmlFor="instructions">Instructions</label>
+        <textarea
+          id="instructions"
+          name="instructions"
+          value={recipe.instructions}
+          onChange={handleChange}
+        ></textarea>
+        <label htmlFor="imageUrl">Image URL</label>
+        <input
+          type="text"
+          id="imageUrl"
+          name="imageUrl"
+          value={recipe.imageUrl}
+          onChange={handleChange}
+        />
+        <label htmlFor="cookingTime">Cooking Time (minutes)</label>
+        <input
+          type="number"
+          id="cookingTime"
+          name="cookingTime"
+          value={recipe.cookingTime}
+          onChange={handleChange}
+        />
+        <button type="submit">Create Recipe</button>
+      </form>
+    </div>
+  );
 };

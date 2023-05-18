@@ -26,7 +26,7 @@ app.use("/auth", userRouter);
 app.use("/recipes", recipesRouter);
 
 mongoose.connect(
-  "mongodb+srv://nikhillumesh:xxx@cluster0.fquwxho.mongodb.net/recipee"
+  "mongodb+srv://nikhillumesh:placement@cluster0.fquwxho.mongodb.net/recipee"
 );
 
 app.listen("3001", (req, res) => {
