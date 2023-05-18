@@ -50,7 +50,7 @@ router.put("/", async (req, res) => {
 router.get("/savedRecipes/ids", async (req, res) => {
   try {
     const user = await UserModel.findByiId(req.body.userID);
-    res.json({ savedRecipes: user.sacedRecipes });
+    res.json({ savedRecipes: user.savedRecipes });
   } catch (err) {
     res.json(err);
   }
