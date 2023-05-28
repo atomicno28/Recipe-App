@@ -13,6 +13,8 @@ import { userRouter } from "./routes/users.js";
 // for recipe.
 import { recipesRouter } from "./routes/recipes.js";
 
+import { database_link } from "../config.js";
+
 const app = express();
 
 //MIDDLEWARE.
@@ -25,9 +27,7 @@ app.use("/auth", userRouter);
 // constituting all recipe parts;
 app.use("/recipes", recipesRouter);
 
-mongoose.connect(
-  "mongodb+srv://nikhillumesh:xxxx@cluster0.fquwxho.mongodb.net/recipee"
-);
+mongoose.connect(database_link);
 
 app.listen("3001", (req, res) => {
   console.log("SERVER STARTED!!");

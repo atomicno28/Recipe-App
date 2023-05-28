@@ -2,9 +2,13 @@ import { useState } from "react";
 import axios from "axios";
 import { useGetUserID } from "../hooks/useGetUserID";
 import { useNavigate } from "react-router-dom";
+import { useCookies } from "react-cookie";
 
 export const CreateRecipe = () => {
   const userID = useGetUserID();
+
+  const [cookies, _] = useState(["access_token"]);
+
   const [recipe, setRecipe] = useState({
     name: "",
     description: "",

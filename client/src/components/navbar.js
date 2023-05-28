@@ -21,11 +21,13 @@ function Navbar() {
     <div className="navbar">
       <Link to="/">Home</Link>
       <Link to="/create-recipe">CreateRecipe</Link>
-      <Link to="/saved-recipes">SavedRecipe</Link>
       {!cookies.access_token ? (
         <Link to="/auth">Login/Register</Link>
       ) : (
-        <button onClick={logout}> LOGOUT</button>
+        <>
+          <Link to="/saved-recipes">SavedRecipe</Link>
+          <button onClick={logout}> LOGOUT</button>
+        </>
       )}
     </div>
   );
