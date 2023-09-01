@@ -13,7 +13,7 @@ import { userRouter } from "./routes/users.js";
 // for recipe.
 import { recipesRouter } from "./routes/recipes.js";
 
-import { database_link } from "../config.js";
+import config from "../config.js";
 
 const app = express();
 
@@ -21,13 +21,18 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
+const mongodbconnection = config.dBKey;
+
+// connecting with the DB.
+mongoose.connect(mongodbconnection);
+
 // constituting all authorisation parts.
 app.use("/auth", userRouter);
 
 // constituting all recipe parts;
 app.use("/recipes", recipesRouter);
 
-mongoose.connect(database_link);
+
 
 app.listen("3001", (req, res) => {
   console.log("SERVER STARTED!!");
