@@ -6,6 +6,7 @@ import { recipesRouter } from "./routes/recipes.js";
 
 const app = express();
 
+// middleware
 app.use(express.json());
 app.use(cors());
 
