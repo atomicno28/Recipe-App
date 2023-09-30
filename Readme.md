@@ -49,16 +49,15 @@ Follow these steps to set up and run the project locally:
 
 2. **Server Setup:**
 
-1. Navigate to the server directory.
-2. Install dependencies: `npm install`
-3. Set up your MongoDB connection in the `config/db.js` file.
-4. Run the server: `npm start`
+- Navigate to the server directory.
+- Install dependencies: `npm install`
+- Set up your MongoDB connection in the `config/db.js` file.
+- Run the server: `npm start`
 
 3. **Client Setup:**
-
-1. Navigate to the client directory.
-2. Install dependencies: `npm install`
-3. Start the React app: `npm start`
+- Navigate to the client directory.
+- Install dependencies: `npm install`
+- Start the React app: `npm start`
 
 **Explore the App:**
 
@@ -66,21 +65,39 @@ Open your browser and go to `http://localhost:3000` to access the app.
 
 ### Screenshots
 
+- Home Page
+
 ![Home Page](readmeimg/ss001.png)
+
+- Login/Registration Page
 
 ![Login/Register Page](readmeimg/ss003.png)
 
+- Registration Done
+
 ![Registration Done](readmeimg/ss004.png)
+
+- Login Done
 
 ![Login Done](readmeimg/ss005.png)
 
+Dashboard containing Saved Recipes
+
 ![Dashboard containing Saved Recipes](readmeimg/ss006.png)
+
+- Create Recipe Option
 
 ![Create Recipe Option](readmeimg/ss007.png)
 
+- Adding Details to the form
+
 ![Adding Details to the form](readmeimg/ss008.png)
 
+- Recipe Created
+
 ![Recipe Created](readmeimg/ss009.png)
+
+- Added Recipe Shown
 
 ![Added Recipe Shown](readmeimg/ss010.png)
 
