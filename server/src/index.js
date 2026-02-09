@@ -18,7 +18,7 @@ app.use("/recipes", recipesRouter);
 
 // database establish.
 mongoose.connect(
-  "mongodb+srv://nikhillumesh:placement2023@cluster0.fquwxho.mongodb.net/",
+  process.env.MONGODBURI,
   {
     useNewUrlParser: true,
     useUnifiedTopology: true,
